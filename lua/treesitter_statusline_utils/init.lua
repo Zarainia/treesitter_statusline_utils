@@ -55,7 +55,7 @@ local function get_display_node_name(node, type, functions)
         local children = ts_utils.get_named_children(node)
         for _, child_node in pairs(children) do
             if functions.is_name(child_node) then
-                local name = vim.treesitter.get_node_text(child_node)[1]
+                local name = vim.treesitter.get_node_text(child_node, 0)
                 local match = name:match("^%s*%w+%s+([%w_]+)%s*%(")
                 if match then
                     name = match
@@ -120,7 +120,7 @@ function M._node_children(desired_type)
         if node_type == desired_type then
             local children = ts_utils.get_named_children(node)
             for _, child_node in pairs(children) do
-                print(vim.treesitter.get_node_text(child_node)[1] or "")
+                print(vim.treesitter.get_node_text(child_node, 0) or "")
                 print(child_node:type())
             end
             return
